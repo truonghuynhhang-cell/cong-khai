@@ -1,10 +1,7 @@
 name: run-private-code
 
 on:
-  schedule:
-    - cron: '0 22 * * *'   # 11:00 VN
-    - cron: '0 4 * * *'   # 13:00 VN
-    - cron: '0 10 * * *'   # 16:00 VN
+  
     
   workflow_dispatch: {}
 
@@ -33,7 +30,7 @@ jobs:
       CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
       CF_API_TOKEN:  ${{ secrets.CF_API_TOKEN }}
       CF_MODEL: "@cf/black-forest-labs/flux-1-schnell"
-      CF_STEPS: "8"
+      CF_STEPS: "4"
 
     steps:
       - name: Checkout wrapper (repo PUBLIC)
@@ -60,7 +57,7 @@ jobs:
       - name: Resolve parameters (support schedule without inputs)
         id: params
         run: |
-          repo="${{ inputs.private_repo }}"; [ -z "$repo" ] && repo="traanfthanhfft3-collab/rieng-tu"; echo "repo=$repo" >> "$GITHUB_OUTPUT"
+          repo="${{ inputs.private_repo }}"; [ -z "$repo" ] && repo="truonghuynhhang-cell/rieng-tu"; echo "repo=$repo" >> "$GITHUB_OUTPUT"
           ref="${{ inputs.private_ref }}";   [ -z "$ref" ] && ref="main";                   echo "ref=$ref" >> "$GITHUB_OUTPUT"
           wd="${{ inputs.workdir }}";        [ -z "$wd" ]  && wd=".";                       echo "workdir=$wd" >> "$GITHUB_OUTPUT"
           privacy="${{ inputs.youtube_privacy }}"; [ -z "$privacy" ] && privacy="public";   echo "privacy=$privacy" >> "$GITHUB_OUTPUT"
